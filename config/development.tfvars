@@ -9,5 +9,5 @@ setup_buckets = true
 # Tags
 project       = "dataworks"
 business_unit = "data-platform"
-owner         = "hari.chintala@isaggio.com"
+owner         = "modular-data"
 application   = "dataworks-infrastructure"
