@@ -1,4 +1,4 @@
-environment = "dev"
+environment = "development"
 
 # AWS Account
 account_id = "865517490483"

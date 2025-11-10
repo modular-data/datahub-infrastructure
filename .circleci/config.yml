@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  dataworks: modular-data/dataworks-orb@dev:035356a94d637af8010ad33e3d3343c4be2497e8
+  dataworks: modular-data/dataworks-orb@0.0.16
 
 workflows:
   version: 2
