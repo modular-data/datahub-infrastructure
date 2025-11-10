@@ -252,61 +252,61 @@ module "s3_quarantine_bucket" {
 
 # S3 Bucket (Application Artifacts Store)
 module "s3_artifacts_store" {
-   source              = "./modules/s3_bucket"
-   create_s3           = local.setup_buckets
-   name                = "${local.project}-artifact-store-${local.environment}"
-   custom_kms_key      = local.s3_kms_arn
-   create_notification_queue = false # For SQS Queue
+  source                    = "./modules/s3_bucket"
+  create_s3                 = local.setup_buckets
+  name                      = "${local.project}-artifact-store-${local.environment}"
+  custom_kms_key            = local.s3_kms_arn
+  create_notification_queue = false # For SQS Queue
 
-#   # Dynamic, supports multiple notifications blocks
-#   bucket_notifications = {
-#     "lambda_function_arn" = module.domain_builder_flyway_Lambda.lambda_function
-#     "events"              = ["s3:ObjectCreated:*"]
-#     "filter_prefix"       = "build-artifacts/domain-builder/jars/"
-#     "filter_suffix"       = ".jar"
-#   }
-#
-#   dependency_lambda = [module.domain_builder_flyway_Lambda.lambda_function] # Required if bucket_notications is enabled
-#
-   tags = merge(
-     local.all_tags,
-     {
-       dwh-name          = "${local.project}-artifact-store-${local.environment}"
-       dwh-resource-type = "S3 Bucket"
-       dwh-jira          = "dwh-108"
-     }
-   )
+  #   # Dynamic, supports multiple notifications blocks
+  #   bucket_notifications = {
+  #     "lambda_function_arn" = module.domain_builder_flyway_Lambda.lambda_function
+  #     "events"              = ["s3:ObjectCreated:*"]
+  #     "filter_prefix"       = "build-artifacts/domain-builder/jars/"
+  #     "filter_suffix"       = ".jar"
+  #   }
+  #
+  #   dependency_lambda = [module.domain_builder_flyway_Lambda.lambda_function] # Required if bucket_notications is enabled
+  #
+  tags = merge(
+    local.all_tags,
+    {
+      dwh-name          = "${local.project}-artifact-store-${local.environment}"
+      dwh-resource-type = "S3 Bucket"
+      dwh-jira          = "dwh-108"
+    }
+  )
 }
 
 # S3 Working Bucket
 module "s3_working_bucket" {
-   source                    = "./modules/s3_bucket"
-   create_s3                 = local.setup_buckets
-   name                      = "${local.project}-working-${local.environment}"
-   custom_kms_key            = local.s3_kms_arn
-   create_notification_queue = false # For SQS Queue
-   enable_lifecycle          = true
-   lifecycle_category        = "long_term"
+  source                    = "./modules/s3_bucket"
+  create_s3                 = local.setup_buckets
+  name                      = "${local.project}-working-${local.environment}"
+  custom_kms_key            = local.s3_kms_arn
+  create_notification_queue = false # For SQS Queue
+  enable_lifecycle          = true
+  lifecycle_category        = "long_term"
 
-   override_expiration_rules = [
-     {
-       id     = "reports"
-       prefix = "reports/"
-       days   = 365
-     },
-     {
-       id     = "dpr"
-       prefix = "dpr/"
-       days   = 7
-     }
-   ]
+  override_expiration_rules = [
+    {
+      id     = "reports"
+      prefix = "reports/"
+      days   = 365
+    },
+    {
+      id     = "dpr"
+      prefix = "dpr/"
+      days   = 7
+    }
+  ]
 
-   tags = merge(
-     local.all_tags,
-     {
-       dwh-name          = "${local.project}-working-${local.environment}"
-       dwh-resource-type = "S3 Bucket"
-       dwh-jira          = "dwh-108"
-     }
-   )
- }
+  tags = merge(
+    local.all_tags,
+    {
+      dwh-name          = "${local.project}-working-${local.environment}"
+      dwh-resource-type = "S3 Bucket"
+      dwh-jira          = "dwh-108"
+    }
+  )
+}
