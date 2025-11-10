@@ -18,6 +18,8 @@ workflows:
           state_key: "dataworks-infrastructure"
           region: eu-west-2
           channel: dataworks-alerts
+          context:
+          - md-dataworks-common          
           is_mock: false
           filters:
             branches:
@@ -41,6 +43,8 @@ workflows:
           state_key: "dataworks-infrastructure"
           region: eu-west-2
           channel: dataworks-alerts
+          context:
+          - md-dataworks-common          
           notify_slack: true
           apply_ready: true
           requires:
