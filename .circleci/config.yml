@@ -17,7 +17,7 @@ workflows:
           dynamo_tab: "dataworks-terraform-state"
           state_key: "dataworks-infrastructure"
           region: eu-west-2
-          channel: dataworks-alerts
+          channel: modular-data-test
           context:
           - md-dataworks-common          
           is_mock: false
