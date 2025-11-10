@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  dataworks: modular-data/dataworks-orb@0.0.15
+  dataworks: modular-data/dataworks-orb@0.0.8
 
 workflows:
   version: 2
@@ -18,8 +18,6 @@ workflows:
           state_key: "dataworks-infrastructure"
           region: eu-west-2
           channel: dataworks-alerts
-          context:
-          - dataworks-common          
           is_mock: false
           filters:
             branches:
@@ -45,8 +43,6 @@ workflows:
           channel: dataworks-alerts
           notify_slack: true
           apply_ready: true
-          context:
-          - dataworks-common          
           requires:
             - hold-dev
           filters:
